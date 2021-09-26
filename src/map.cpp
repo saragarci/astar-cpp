@@ -8,7 +8,7 @@ namespace {
     // private functions
 }
 
-namespace map {
+namespace astar {
 
 Map::Map(std::string path) : path{path}
 {

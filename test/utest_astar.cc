@@ -39,7 +39,7 @@ class AstarTest : public ::testing::Test {
 
 // Tests that Map::Map() correctly creates a map.
 TEST_F(AstarTest, MapCreatesAMap) {
-	map::Map map{"../test/test_map_1.csv"};
+	astar::Map map{"../test/test_map_1.csv"};
 
 	std::vector<std::vector<int>> expected_map{
 		{1,1,1,1,1,1,1,1,1,1},

@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-namespace map {
+namespace astar {
 
 class Map {
 public:
