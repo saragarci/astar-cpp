@@ -50,9 +50,9 @@ void Map::print()
             if (elem == 8)
                 std::cout << " * ";
             else if (elem == -1)
-                std::cout << " s ";
+                std::cout << " S ";
             else if (elem == -2)
-                std::cout << " g ";
+                std::cout << " G ";
             else
                 std::cout << " " << elem << " ";
         }
