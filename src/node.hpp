@@ -17,7 +17,21 @@ public:
     int getG() const;
     int getH() const;
 
-    bool operator<(const Node& n) const { return getF() < n.getF(); }
+    /*friend bool operator<(Node const& lhs, Node const& rhs) {
+        return lhs.getF() < rhs.getF();
+    }
+
+    friend bool operator<(const Node& n) const { return getF() < n.getF(); }
+    friend bool operator>(const Node& n) const { return getF() > n.getF(); }
+    friend bool operator==(const Node& lhs, const Node& rhs) {
+        return lhs.getF() == rhs.getF();
+    }*/
+
+    /*constexpr bool operator()(const Node &lhs, const Node &rhs) const 
+    {
+        return lhs.getF() > rhs.getF(); // assumes that the implementation uses a flat address space
+    }*/
+
 
 private:
     Cell state;

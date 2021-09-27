@@ -1,6 +1,8 @@
 #ifndef MAP_HPP_INCLUDED
 #define MAP_HPP_INCLUDED
 
+#include "cell.hpp"
+
 #include <string>
 #include <vector>
 
@@ -14,6 +16,7 @@ public:
     int getWidth() const;
     int getHeight() const;
     int getValueAt(int x, int y) const;
+    void printSolution(std::vector<Cell> solution);
 
 private:
     void createMap();

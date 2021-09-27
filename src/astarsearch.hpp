@@ -29,7 +29,14 @@ private:
     Map & map;
     Cell & start;
     Cell & goal;
-    std::priority_queue<Node> frontier;
+
+    struct cmp {
+        auto operator()( Node const lhs, Node const rhs ) const
+            -> bool
+        { return lhs.getF() > rhs.getF(); }
+    };
+
+    std::priority_queue<Node, std::vector<Node>, cmp> frontier;
     std::unordered_map<std::string, Node> reached;
     std::vector<Cell> actions;
 };

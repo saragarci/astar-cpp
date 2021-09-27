@@ -11,6 +11,7 @@ public:
     int getX() const;
     int getY() const;
     std::string getName() const;
+
     friend bool operator==(const Cell& lhs, const Cell& rhs) {
         return lhs.getX() == rhs.getX() && lhs.getY() == rhs.getY();
     }

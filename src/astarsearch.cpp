@@ -1,9 +1,20 @@
 #include "astarsearch.hpp"
 
 #include <iostream>
+#include <typeinfo>
 
 namespace {
     // private functions
+
+    template<typename T>
+    void print_queue(T q) { // NB: pass by value so the print uses a copy
+        while(!q.empty()) {
+            std::cout << q.top().getState().getName() << ' ';
+            q.pop();
+        }
+        std::cout << '\n';
+    }
+
 }
 
 namespace astar {
@@ -24,20 +35,26 @@ AstarSearch::AstarSearch(Map & map, Cell & start, Cell & goal) : map{map}, start
 void AstarSearch::showShortestPath()
 {
     auto result = BestFirstSearch();
-    if (!result.has_value()) std::cerr << "Failure\n";
-
-    //std::vector<Cell> solution{};
-    //solution.emplace_back(result.getState());
-
-    /*Node n = result->getParent();
-    while (n != nullptr) {
-        auto state = n.getState();
-        solution.emplace_back(state);
-        n = n.getParent();
+    if (!result.has_value()){
+        std::cerr << "Failure\n";
+        return;
     }
-    solution.emplace_back(n.getState());*/
 
-    //map.printSolution(solution);
+    std::vector<Cell> solution{};
+    solution.emplace_back(result->getState());
+
+    auto c_parent = result->getParent();
+    while (c_parent.has_value()) {
+        const Node n_parent = reached.at(c_parent->getName());
+        solution.emplace_back(n_parent.getState());
+        c_parent = n_parent.getParent();
+    }
+
+    for (auto s : solution)
+        std::cout << s.getName() << ", ";
+    std::cout << std::endl;
+
+    map.printSolution(solution);
 }
 
 std::optional<Node> AstarSearch::BestFirstSearch()
@@ -45,20 +62,25 @@ std::optional<Node> AstarSearch::BestFirstSearch()
     Node n = Node{start, {}, actionCost(start), computeH(start)};
     frontier.push(n);
     reached.insert({start.getName(), n});
-    /*while (!frontier.empty()) {
-        Node const & node = frontier.pop();
+    while (!frontier.empty()) {
+        const Node node = frontier.top();
+        frontier.pop();
         if (isGoal(node))
             return node;
 
+        //std::cout << "Expanding node: " << node.getState().getName() << std::endl;
         for (Node child : expandNode(node)) {
             Cell s = child.getState();
             auto search = reached.find(s.getName());
-            if (search != reached.end() || child.getG() < reached[s.getName()].getG()) {
-                reached[s.getName()] = child;
+            if (search == reached.end()) {
+                reached.insert({s.getName(), child});
+                frontier.push(child);
+            } else if (child.getG() < reached.at(s.getName()).getG()) {
+                reached.at(s.getName()) = child;
                 frontier.push(child);
             }
         }
-    }*/
+    }
     return {};
 }
 
@@ -88,8 +110,15 @@ std::optional<Cell> AstarSearch::applyAction(Cell s, Cell action)
     int x = s.getX() + action.getX();
     int y = s.getY() + action.getY();
 
-    bool is_valid_cell = (x >= 0 && x < map.getWidth() && y >= 0 && y < map.getHeight());
-    return is_valid_cell ? std::optional<Cell>{Cell{x, y}} : std::nullopt;
+    bool is_cell_in_grid = x >= 0 && x < map.getWidth() && y >= 0 && y < map.getHeight();
+    if (!is_cell_in_grid)
+        return {};
+
+    bool is_cell_a_valid_path = map.getValueAt(x, y) != 0;
+    if (!is_cell_a_valid_path)
+        return {};
+    
+    return std::optional<Cell>{Cell{x, y}};
 }
 
 int AstarSearch::actionCost(Cell child_s)

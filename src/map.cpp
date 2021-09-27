@@ -46,8 +46,16 @@ std::vector<std::vector<int>> Map::getMap()
 void Map::print()
 {
     for (auto row : map) {
-        for (auto elem : row)
-            std::cout << " " << elem << " ";
+        for (auto elem : row) {
+            if (elem == 8)
+                std::cout << " * ";
+            else if (elem == -1)
+                std::cout << " s ";
+            else if (elem == -2)
+                std::cout << " g ";
+            else
+                std::cout << " " << elem << " ";
+        }
     
         std::cout << std::endl;
     }
@@ -55,17 +63,31 @@ void Map::print()
 
 int Map::getWidth() const
 {
-    return map[0].size();
+    return map.size();
 }
 
 int Map::getHeight() const
 {
-    return map.size();
+    return map[0].size();
 }
 
 int Map::getValueAt(int x, int y) const
 {
     return map[x][y];
+}
+
+void Map::printSolution(std::vector<Cell> solution)
+{
+    for (auto s : solution)
+        map[s.getX()][s.getY()] = 8;
+    
+    auto start = solution[solution.size()-1];
+    map[start.getX()][start.getY()] = -1;
+
+    auto goal = solution[0];
+    map[goal.getX()][goal.getY()] = -2;
+    
+    print();
 }
 
 }
