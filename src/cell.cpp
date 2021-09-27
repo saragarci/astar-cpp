@@ -6,16 +6,21 @@ namespace {
 
 namespace astar {
 
-Cell::Cell(int cell[2]) : x{cell[0]}, y{cell[1]} {}
+Cell::Cell(int x, int y) : x{x}, y{y} {}
 
-int Cell::getX()
+int Cell::getX() const
 {
     return x;
 }
 
-int Cell::getY()
+int Cell::getY() const
 {
     return y;
+}
+
+std::string Cell::getName() const
+{
+    return "(" + std::to_string(x) + "," + std::to_string(y) + ")";
 }
 
 }

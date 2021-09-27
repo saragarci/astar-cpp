@@ -8,28 +8,30 @@
 #include <vector>
 #include <queue>
 #include <unordered_map>
+#include <string>
+#include <optional>
 
 namespace astar {
 
 class AstarSearch {
 public:
-    explicit AstarSearch(Map map, int start[2], int goal[2]);
+    explicit AstarSearch(Map & map, Cell & start, Cell & goal);
     void showShortestPath();
 
 private:
-    Node BestFirstSearch();
+    std::optional<Node> BestFirstSearch();
     bool isGoal(Node node);
     std::vector<Node> expandNode(Node node);
-    Cell * applyAction(Cell s, int action[2]);
+    std::optional<Cell> applyAction(Cell s, Cell action);
     int actionCost(Cell child_s);
     int computeH(Cell state);
 
-    Map map;
-    Cell start;
-    Cell goal;
+    Map & map;
+    Cell & start;
+    Cell & goal;
     std::priority_queue<Node> frontier;
-    std::unordered_map<Cell, Node> reached;
-    std::vector<std::array<int,2>> actions;
+    std::unordered_map<std::string, Node> reached;
+    std::vector<Cell> actions;
 };
 
 }

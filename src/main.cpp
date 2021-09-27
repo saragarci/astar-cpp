@@ -1,17 +1,19 @@
 #include "map.hpp"
 #include "astarsearch.hpp"
+#include "cell.hpp"
 
 using astar::Map;
 using astar::AstarSearch;
+using astar::Cell;
 
 int main() {
     // Task 0
     Map map{"../src/maps/map_1.csv"};
     map.print();
     
-    int start[2] = {0,0};    
-    int goal[2] = {4,9};
+    Cell start{0,0};
+    Cell goal{4,9};    
     
-    AstarSearch astar(map, start, goal);
-    astar.showShortestPath();
+    //AstarSearch astar(map, start, goal);
+    //astar.showShortestPath();
 }

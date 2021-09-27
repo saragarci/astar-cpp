@@ -4,22 +4,24 @@
 #include "cell.hpp"
 
 #include <vector>
+#include <optional>
 
 namespace astar {
 
 class Node {
 public:
-    explicit Node(int state[2], int parent[2], int g, int h);
+    explicit Node(Cell state, std::optional<Cell> parent, int g, int h);
     Cell getState() const;
-    Cell getParent() const;
+    std::optional<Cell> getParent() const;
     int getF() const;
     int getG() const;
     int getH() const;
+
     bool operator<(const Node& n) const { return getF() < n.getF(); }
 
 private:
     Cell state;
-    Cell parent;
+    std::optional<Cell> parent;
     int g{0};
     int h{0};
     int f{0};

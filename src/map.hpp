@@ -11,6 +11,9 @@ public:
     explicit Map(std::string path);
     std::vector<std::vector<int>> getMap();
     void print();
+    int getWidth() const;
+    int getHeight() const;
+    int getValueAt(int x, int y) const;
 
 private:
     void createMap();

@@ -1,60 +1,65 @@
 #include "astarsearch.hpp"
 
+#include <iostream>
+
 namespace {
     // private functions
 }
 
 namespace astar {
 
-AstarSearch::AstarSearch(Map map, int start[2], int goal[2]) : map{map}, start{start}, goal{goal}
+AstarSearch::AstarSearch(Map & map, Cell & start, Cell & goal) : map{map}, start{start}, goal{goal}
 {
-    int move_up[2] = {0,1};
-    int move_down[2] = {0,-1};
-    int move_left[2] = {-1,0};
-    int move_right[2] = {1,0};
+    Cell up{0,1};
+    Cell down{0,-1};
+    Cell left{-1,0};
+    Cell right{1,0};
 
-    actions.emplace_back(move_up);
-    actions.emplace_back(move_down);
-    actions.emplace_back(move_left);
-    actions.emplace_back(move_right);
+    actions.emplace_back(up);
+    actions.emplace_back(down);
+    actions.emplace_back(left);
+    actions.emplace_back(right);
 }
 
 void AstarSearch::showShortestPath()
 {
-    Node * result = BestFirstSearch();
-    if (result == nullptr) std::cerr << "Failure\n";
+    auto result = BestFirstSearch();
+    if (!result.has_value()) std::cerr << "Failure\n";
 
-    std::vector<Cell> solution{};
-    solution.emplace_back(node->getState());
+    //std::vector<Cell> solution{};
+    //solution.emplace_back(result.getState());
 
-    Node n = node->getParent();
-    while (n) {
+    /*Node n = result->getParent();
+    while (n != nullptr) {
         auto state = n.getState();
         solution.emplace_back(state);
         n = n.getParent();
     }
-    solution.emplace_back(n.getState());
+    solution.emplace_back(n.getState());*/
 
     //map.printSolution(solution);
 }
 
-Node * AstarSearch::BestFirstSearch()
+std::optional<Node> AstarSearch::BestFirstSearch()
 {
-    while (!frontier.empty()) {
-        Node node = frontier.pop();
+    Node n = Node{start, {}, actionCost(start), computeH(start)};
+    frontier.push(n);
+    reached.insert({start.getName(), n});
+    /*while (!frontier.empty()) {
+        Node const & node = frontier.pop();
         if (isGoal(node))
-            return &node;
+            return node;
 
         for (Node child : expandNode(node)) {
             Cell s = child.getState();
-            auto search = reached.find(s);
-            if (search != reached.end() || child.getG() < reached[s].getG()) {
-                reached[s] = child;
+            auto search = reached.find(s.getName());
+            if (search != reached.end() || child.getG() < reached[s.getName()].getG()) {
+                reached[s.getName()] = child;
                 frontier.push(child);
             }
         }
-    }
-    return nullptr;
+    }*/
+    return {};
 }
 
 bool AstarSearch::isGoal(Node node)
@@ -68,28 +73,28 @@ std::vector<Node> AstarSearch::expandNode(Node node)
     
     Cell parent_s = node.getState();
     for (auto action : actions) {
-        Cell * child_s = applyAction(parent_s, action);
-        if (child_s != nullptr) {
-            int g = node.getG() + actionCost(child_s);
-            childs.emplace_back(Node{child_s, parent_s, g, computeH(child_s)});
+        auto child_s = applyAction(parent_s, action);
+        if (child_s.has_value()) {
+            int g = node.getG() + actionCost(child_s.value());
+            childs.emplace_back(Node{child_s.value(), parent_s, g, computeH(child_s.value())});
         }
     }
 
     return childs;
 }
 
-Cell * AstarSearch::applyAction(Cell s, int action[2])
+std::optional<Cell> AstarSearch::applyAction(Cell s, Cell action)
 {
-    int x = s.getX() + action[0];
-    int y = s.getY() + action[1];
+    int x = s.getX() + action.getX();
+    int y = s.getY() + action.getY();
 
-    if (x >= 0 && x < map.size() && y >= 0 && y < map[x].size())
-        return map[x][y] != -1;
+    bool is_valid_cell = (x >= 0 && x < map.getWidth() && y >= 0 && y < map.getHeight());
+    return is_valid_cell ? std::optional<Cell>{Cell{x, y}} : std::nullopt;
 }
 
 int AstarSearch::actionCost(Cell child_s)
 {
-    return map[child_s.getX()][child_s.getY()];
+    return map.getValueAt(child_s.getX(), child_s.getY());
 }
 
 /*

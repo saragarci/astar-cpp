@@ -22,7 +22,7 @@ FetchContent_MakeAvailable(googletest)
 enable_testing()
 
 # Create a library for unit tests
-add_library(astar_search OBJECT src/map.cpp)
+add_library(astar_search OBJECT src/map.cpp src/cell.cpp src/node.cpp src/astarsearch.cpp)
 target_include_directories(astar_search PRIVATE)
 
 add_executable(

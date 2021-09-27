@@ -53,4 +53,19 @@ void Map::print()
     }
 }
 
+int Map::getWidth() const
+{
+    return map[0].size();
+}
+
+int Map::getHeight() const
+{
+    return map.size();
+}
+
+int Map::getValueAt(int x, int y) const
+{
+    return map[x][y];
+}
+
 }

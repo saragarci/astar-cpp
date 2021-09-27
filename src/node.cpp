@@ -6,14 +6,14 @@ namespace {
 
 namespace astar {
 
-Node::Node(int state[2], int parent[2], int g, int h) : state{state}, parent{parent}, g{g}, h{h}, f{g+h} {}
+Node::Node(Cell state, std::optional<Cell> parent, int g, int h) : state{state}, parent{parent}, g{g}, h{h}, f{g+h} {}
 
 Cell Node::getState() const
 {
     return state;
 }
 
-Cell Node::getParent() const
+std::optional<Cell> Node::getParent() const
 {
     return parent;
 }
