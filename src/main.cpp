@@ -33,35 +33,37 @@ int main() {
 
     // Task 2
     Map map_task2{"../src/maps/Samfundet_map_1.csv"};
-    map_task2.print();
+    //map_task2.print();
     
     Cell start_task2{40,32};
     Cell goal_task2{8,5};    
     
-    AstarSearch astar_task2(map_task2, start_task2, goal_task2);
-    astar_task2.showShortestPath();
+    //AstarSearch astar_task2(map_task2, start_task2, goal_task2);
+    //astar_task2.showShortestPath();
     /* ------ */
 
     // Task 3
+    std::cout <<"\nTASK 3:\n";
     Map map_task3{"../src/maps/Samfundet_map_2.csv"};
     //map_task3.print();
     
     Cell start_task3{28,32};
     Cell goal_task3{6,32};    
     
-    //AstarSearch astar_task3(map_task3, start_task3, goal_task3);
-    //astar_task3.showShortestPath();
+    AstarSearch astar_task3(map_task3, start_task3, goal_task3);
+    astar_task3.showShortestPath();
     /* ------ */
 
     // Task 4
+    std::cout <<"\nTASK 4:\n";
     Map map_task4{"../src/maps/Samfundet_map_Edgar_full.csv"};
     //map_task4.print();
     
     Cell start_task4{28,32};
     Cell goal_task4{6,32};    
     
-    //AstarSearch astar_task4(map_task4, start_task4, goal_task4);
-    //astar_task4.showShortestPath();
+    AstarSearch astar_task4(map_task4, start_task4, goal_task4);
+    astar_task4.showShortestPath();
     /* ------ */
 
     /*

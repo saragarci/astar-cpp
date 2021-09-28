@@ -31,10 +31,9 @@ std::vector<int> Map::parseLine(std::string line)
     std::vector<int> row;
     int n;
     char ch;
-    while (sline >> n >> ch && ch == ',') {
-        if (n == 1) row.emplace_back(1);
-        if (n == -1) row.emplace_back(0);
-    }
+    while (sline >> n >> ch && ch == ',')
+        row.emplace_back(n);
+    
     return row;
 }
 
@@ -47,11 +46,13 @@ void Map::print()
 {
     for (auto row : map) {
         for (auto elem : row) {
-            if (elem == 8)
+            if (elem == -1)
+                std::cout << " 0 ";
+            else if (elem == 300)
                 std::cout << " * ";
-            else if (elem == -1)
+            else if (elem == -100)
                 std::cout << " S ";
-            else if (elem == -2)
+            else if (elem == -200)
                 std::cout << " G ";
             else
                 std::cout << " " << elem << " ";
@@ -79,13 +80,13 @@ int Map::getValueAt(int x, int y) const
 void Map::printSolution(std::vector<Cell> solution)
 {
     for (auto s : solution)
-        map[s.getX()][s.getY()] = 8;
+        map[s.getX()][s.getY()] = 300;
     
     auto start = solution[solution.size()-1];
-    map[start.getX()][start.getY()] = -1;
+    map[start.getX()][start.getY()] = -100;
 
     auto goal = solution[0];
-    map[goal.getX()][goal.getY()] = -2;
+    map[goal.getX()][goal.getY()] = -200;
     
     print();
 }

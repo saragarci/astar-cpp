@@ -39,9 +39,9 @@ void AstarSearch::showShortestPath()
         c_parent = n_parent.getParent();
     }
 
-    for (auto s : solution)
+    /*for (auto s : solution)
         std::cout << s.getName() << ", ";
-    std::cout << std::endl;
+    std::cout << std::endl;*/
 
     map.printSolution(solution);
 }
@@ -106,7 +106,7 @@ std::optional<Cell> AstarSearch::applyAction(Cell s, Cell action)
     if (!is_cell_on_grid)
         return {};
 
-    bool is_cell_a_valid_path = map.getValueAt(x, y) != 0;
+    bool is_cell_a_valid_path = map.getValueAt(x, y) != -1;
     if (!is_cell_a_valid_path)
         return {};
     
