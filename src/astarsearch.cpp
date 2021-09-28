@@ -19,18 +19,7 @@ namespace {
 
 namespace astar {
 
-AstarSearch::AstarSearch(Map & map, Cell & start, Cell & goal) : map{map}, start{start}, goal{goal}
-{
-    Cell up{0,1};
-    Cell down{0,-1};
-    Cell left{-1,0};
-    Cell right{1,0};
-
-    actions.emplace_back(up);
-    actions.emplace_back(down);
-    actions.emplace_back(left);
-    actions.emplace_back(right);
-}
+AstarSearch::AstarSearch(Map & map, Cell & start, Cell & goal) : map{map}, start{start}, goal{goal} {}
 
 void AstarSearch::showShortestPath()
 {
@@ -57,6 +46,9 @@ void AstarSearch::showShortestPath()
     map.printSolution(solution);
 }
 
+/** 
+ * Implementation of A* search algorithm
+ */
 std::optional<Node> AstarSearch::BestFirstSearch()
 {
     Node n = Node{start, {}, actionCost(start), computeH(start)};
@@ -110,8 +102,8 @@ std::optional<Cell> AstarSearch::applyAction(Cell s, Cell action)
     int x = s.getX() + action.getX();
     int y = s.getY() + action.getY();
 
-    bool is_cell_in_grid = x >= 0 && x < map.getWidth() && y >= 0 && y < map.getHeight();
-    if (!is_cell_in_grid)
+    bool is_cell_on_grid = x >= 0 && x < map.getWidth() && y >= 0 && y < map.getHeight();
+    if (!is_cell_on_grid)
         return {};
 
     bool is_cell_a_valid_path = map.getValueAt(x, y) != 0;

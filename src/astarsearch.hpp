@@ -10,6 +10,7 @@
 #include <unordered_map>
 #include <string>
 #include <optional>
+#include <array>
 
 namespace astar {
 
@@ -38,7 +39,9 @@ private:
 
     std::priority_queue<Node, std::vector<Node>, cmp> frontier;
     std::unordered_map<std::string, Node> reached;
-    std::vector<Cell> actions;
+
+    Cell up{0,1}, down{0,-1}, left{-1,0}, right{1,0};
+    std::array<Cell, 4> actions{up, down, left, right};
 };
 
 }
