@@ -39,17 +39,10 @@ class AstarTest : public ::testing::Test {
 
 // Tests that Map::Map() correctly creates a map.
 TEST_F(AstarTest, MapCreatesAMap) {
-	astar::Map map{"../test/test_map_1.csv"};
+	astar::Map map{"../test/test_map_1.csv", 20};
 
-	std::vector<std::vector<int>> expected_map{
-		{1,1,1,1,1,1,1,1,1,1},
-		{1,0,0,0,1,1,1,0,0,1},
-		{1,1,1,1,1,0,0,1,1,1},
-		{0,0,1,0,0,1,1,1,0,0},
-		{1,1,1,1,1,1,0,1,1,1}
-	};
-
-  	EXPECT_EQ(map.getMap(), expected_map);
+  	EXPECT_EQ(map.getWidth(), 4);
+  	EXPECT_EQ(map.getWidth(), 9);
 }
 
 // Tests that Foo does Xyz.
