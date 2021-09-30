@@ -1,12 +1,14 @@
 #include "node.hpp"
 
-namespace {
-    // private functions
-}
-
 namespace astar {
 
-Node::Node(Cell * state, Cell * parent, int g, int h) : state{state}, parent{parent}, g{g}, h{h}, f{g+h} {}
+/** 
+ * Constructor for the Node class
+ */
+Node::Node(Cell * state, Cell * parent, int g, int h)
+     : state{state},
+       parent{parent},
+       g{g}, h{h}, f{g+h} {}
 
 Cell * Node::getState() const
 {

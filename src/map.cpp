@@ -4,10 +4,6 @@
 #include <sstream>
 #include <iostream>
 
-namespace {
-    // private functions
-}
-
 namespace astar {
 
 /** 
@@ -65,6 +61,11 @@ void Map::createMap()
     }     
 }
 
+/*
+ * Gets a line of the csv file and creates and stores
+ * a vector of cells into the map container member.
+ * Each integer of the line is used to create a cell.
+ */
 void Map::parseLine(std::string line, int y)
 {
     // Make each line end with a comma
@@ -85,6 +86,10 @@ void Map::parseLine(std::string line, int y)
     map.emplace_back(v);
 }
 
+/*
+ * Renders the cells using the SDL library with different
+ * colors according to their state
+ */
 void Map::print()
 {
     // Clear screen
@@ -118,43 +123,71 @@ void Map::print()
     SDL_RenderPresent(sdl_renderer);
 }
 
+/*
+ * Helper method to paint a rectangle given a cell and
+ * and a specific RGB color specified
+ */
 void Map::SDLfillRect(Cell cell, int r, int g, int b)
 {
     SDL_SetRenderDrawColor(sdl_renderer, r, g, b, 1);
     SDL_RenderFillRect(sdl_renderer, cell.getRect());
 }
 
+/*
+ * Helper method to draw a rectangle given a cell and
+ * and a specific RGB color
+ */
 void Map::SDLdrawRect(Cell cell, int r, int g, int b)
 {
     SDL_SetRenderDrawColor(sdl_renderer, r, g, b, 1);
     SDL_RenderDrawRect(sdl_renderer, cell.getRect());
 }
 
+/*
+ * Return the width of the map containers
+ */
 int Map::getWidth() const
 {
     return map[0].size();
 }
 
+/*
+ * Return the height of the map container
+ */
 int Map::getHeight() const
 {
     return map.size();
 }
 
+/*
+ * Returns the size of the cell (both width and
+ * height since they are a square)
+ */
 std::size_t Map::getCellSize() const
 {
     return kcell_size;
 }
 
+/*
+ * Returns a pointer to the start cell
+ */
 Cell * Map::getStart() const
 {
     return start;
 }
 
+/*
+ * Returns a pointer to the goal cell
+ */
 Cell * Map::getGoal() const
 {
     return goal;
 }
 
+/*
+ * Given a position in the map (x, y) it sets the
+ * start cell
+ */
 void Map::setStart(std::array<int, 2> new_start)
 {
     Cell * start_p = getCellAtCoordinates(new_start[0], new_start[1]);
@@ -166,6 +199,10 @@ void Map::setStart(std::array<int, 2> new_start)
     start->setIsStart(true);
 }
 
+/*
+ * Given a position in the map (x, y) it sets the
+ * goal cell
+ */
 void Map::setGoal(std::array<int, 2> new_goal)
 {
     Cell * goal_p = getCellAtCoordinates(new_goal[0], new_goal[1]);
@@ -177,6 +214,11 @@ void Map::setGoal(std::array<int, 2> new_goal)
     goal->setIsGoal(true);
 }
 
+/*
+ * Given a position in the map (x, y) it returns a
+ * pointer to the cell in that position or nullptr
+ * if that position does not exist in the map
+ */
 Cell * Map::getCellAtCoordinates(int x, int y)
 {
     bool valid_cell = x >= 0 && x < getWidth() && y >= 0 && y < getHeight();

@@ -1,11 +1,10 @@
 #include "cell.hpp"
 
-namespace {
-    // private functions
-}
-
 namespace astar {
 
+/** 
+ * Constructor of Cell
+ */
 Cell::Cell(int x_coord, int y_coord, int x, int y, int w, int h, int value)
      : x{x_coord}, y{y_coord}, rect{x, y, w, h}, value{value} {}
 

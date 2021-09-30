@@ -4,11 +4,9 @@
 #include <typeinfo>
 
 namespace {
-    // private functions
-
     template<typename T>
     void print_queue(T q) { // NB: pass by value so the print uses a copy
-        while(!q.empty()) {
+        while (!q.empty()) {
             std::cout << q.top().getState().getName() << ' ';
             q.pop();
         }
