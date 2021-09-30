@@ -5,7 +5,7 @@
 
 namespace {
     template<typename T>
-    void print_queue(T q) { // NB: pass by value so the print uses a copy
+    void print_queue(T q) {
         while (!q.empty()) {
             std::cout << q.top().getState().getName() << ' ';
             q.pop();
@@ -19,19 +19,18 @@ namespace astar {
 /** 
  * Constructor of AstarSearch
  */
-AstarSearch::AstarSearch(Map & map, std::array<int, 2> start, std::array<int, 2> goal, std::array<std::array<int, 2>, 4> actions)
-     : map{map},
-       actions{actions}
+AstarSearch::AstarSearch(Map & map, std::array<int, 2> start,
+     std::array<int, 2> goal, std::array<std::array<int, 2>, 4> actions)
+     : map{map}, actions{actions}
 {
     map.setStart(start);
     map.setGoal(goal);
 }
 
 /** 
- * Retrieve the shortest path by iterating from the solution to
- * until the goal using the parent pointers.
- * Then call printSolution() on the map object to show the solution
- * on graphics.
+ * Retrieve the shortest path by iterating from the goal
+ * until the start cell using parent pointers.
+ * printSolution() on the map object renders the solution.
  */
 void AstarSearch::showShortestPath()
 {
@@ -42,6 +41,7 @@ void AstarSearch::showShortestPath()
         return;
     }
 
+    // set all the cells belonging to the shortest path as solution
     result->getState()->setIsSolution(true);
 
     auto c_parent = result->getParent();
@@ -50,6 +50,7 @@ void AstarSearch::showShortestPath()
         n_parent.getState()->setIsSolution(true);
         c_parent = n_parent.getParent();
     }
+
     setSolutionFound(true);
 }
 
@@ -62,7 +63,7 @@ std::optional<Node> AstarSearch::BestFirstSearch()
     assert(start);
     
     map.print();
-    SDL_Delay(4000);
+    SDL_Delay(2000);
     
     Node n = Node{start, nullptr, actionCost(start), computeH(start)};
     frontier.push(n);
@@ -121,7 +122,8 @@ std::vector<Node> AstarSearch::expandNode(Node node)
 }
 
 /*
- * Get the new cell position after applying an action
+ * Get the new cell position after applying an action or
+ * nullptr if that cell is not in the map
  */
 Cell * AstarSearch::applyAction(Cell * s, std::array<int, 2> action)
 {
@@ -146,7 +148,8 @@ int AstarSearch::actionCost(Cell * cell)
  */
 int AstarSearch::computeH(Cell * state)
 {
-    return abs(map.getGoal()->getXCoord() - state->getXCoord()) + abs(map.getGoal()->getYCoord() - state->getYCoord());
+    return abs(map.getGoal()->getXCoord() - state->getXCoord())
+            + abs(map.getGoal()->getYCoord() - state->getYCoord());
 }
 
 void AstarSearch::setSolutionFound(bool isSolved)

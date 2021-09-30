@@ -9,7 +9,8 @@ namespace astar {
 /** 
  * Constructor for the Map class
  */
-Map::Map(std::string path, const std::size_t kcell_size) : path{path}, kcell_size{kcell_size}
+Map::Map(std::string path, const std::size_t kcell_size)
+     : path{path}, kcell_size{kcell_size}
 {
     // Initialize the video subsystem
     if (SDL_Init(SDL_INIT_VIDEO) != 0)
@@ -185,7 +186,7 @@ Cell * Map::getGoal() const
 }
 
 /*
- * Given a position in the map (x, y) it sets the
+ * Given a position in the map (x, y) sets the
  * start cell
  */
 void Map::setStart(std::array<int, 2> new_start)
@@ -200,7 +201,7 @@ void Map::setStart(std::array<int, 2> new_start)
 }
 
 /*
- * Given a position in the map (x, y) it sets the
+ * Given a position in the map (x, y) sets the
  * goal cell
  */
 void Map::setGoal(std::array<int, 2> new_goal)
@@ -215,7 +216,7 @@ void Map::setGoal(std::array<int, 2> new_goal)
 }
 
 /*
- * Given a position in the map (x, y) it returns a
+ * Given a position in the map (x, y) returns a
  * pointer to the cell in that position or nullptr
  * if that position does not exist in the map
  */

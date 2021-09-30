@@ -33,6 +33,11 @@ struct Task {
  * ./Astarsearch 1
  */
 int main(int argc, char *argv[]) {
+    if (argc < 2) {
+        std::cerr << "Task number missing!\n";
+        return 0;
+    }
+
     Task * task = nullptr;
 
     // Task 0
@@ -65,18 +70,9 @@ int main(int argc, char *argv[]) {
         task = &task4;
     }
 
-    // Task 5
-    /*
-    elif task == 5:
-        start_pos = [14, 18]
-        goal_pos = [6, 36]
-        end_goal_pos = [6, 7]
-        path_to_map = 'Samfundet_map_2.csv'
-    */
-
     assert(task);
 
-    // instanciate a map and the astar search
+    // Instanciate a map and the astar search
     Map map{task->map_path, task->kCellSize};
     AstarSearch astar(map, task->start, task->goal, task->actions);
 
