@@ -11,7 +11,6 @@ using astar::Cell;
 
 int main() {
     constexpr std::size_t kCellSize{20};
-    int cellSize = static_cast<int>(kCellSize);
 
     std::array<int, 2> north{0,1};
     std::array<int, 2> south{0,-1};
