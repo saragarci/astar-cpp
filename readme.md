@@ -2,7 +2,7 @@
 
 This application implements the A* search algorithm. The SDL library is used to show the expansion as well as the final path found by the algorithm.
 
-<img src="images/astarsearch.gif"/>
+<img src="images/task_4.gif"/>
 
 ## Usage
 
