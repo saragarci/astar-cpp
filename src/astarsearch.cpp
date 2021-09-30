@@ -14,11 +14,13 @@ namespace {
         }
         std::cout << '\n';
     }
-
 }
 
 namespace astar {
 
+/** 
+ * Constructor of AstarSearch
+ */
 AstarSearch::AstarSearch(Map & map, std::array<int, 2> start, std::array<int, 2> goal, std::array<std::array<int, 2>, 4> actions)
      : map{map},
        actions{actions}
@@ -27,8 +29,15 @@ AstarSearch::AstarSearch(Map & map, std::array<int, 2> start, std::array<int, 2>
     map.setGoal(goal);
 }
 
+/** 
+ * Retrieve the shortest path by iterating from the solution to
+ * until the goal using the parent pointers.
+ * Then call printSolution() on the map object to show the solution
+ * on graphics.
+ */
 void AstarSearch::showShortestPath()
 {
+    // Check if BFS returned the solution node or failure
     auto result = BestFirstSearch();
     if (!result.has_value()){
         std::cerr << "Failure\n";
@@ -47,7 +56,7 @@ void AstarSearch::showShortestPath()
     map.printSolution();
 }
 
-/** 
+/**
  * Implementation of best-first search algorithm
  */
 std::optional<Node> AstarSearch::BestFirstSearch()
@@ -79,11 +88,18 @@ std::optional<Node> AstarSearch::BestFirstSearch()
     return {};
 }
 
+/*
+ * Check if a node state corresponds to the goal state
+ */
 bool AstarSearch::isGoal(Node node)
 {
     return node.getState()->getIsGoal();
 }
 
+/*
+ * Compute all the childs descending from a node as a result of
+ * applying the set of actions available in the problem
+ */
 std::vector<Node> AstarSearch::expandNode(Node node)
 {
     std::vector<Node> childs{};
@@ -100,18 +116,22 @@ std::vector<Node> AstarSearch::expandNode(Node node)
     return childs;
 }
 
+/*
+ * Get the new cell position after applying an action
+ */
 Cell * AstarSearch::applyAction(Cell * s, std::array<int, 2> action)
 {
     int x = s->getXCoord() + action[0];
     int y = s->getYCoord() + action[1];
 
     auto * cell = map.getCellAtCoordinates(x, y);
-    if (cell == nullptr)
-        return {};
-
-    return cell->getValue() != -1 ? cell : nullptr;
+    bool is_valid_cell = cell != nullptr && cell->getValue() != -1;
+    return is_valid_cell ? cell : nullptr;
 }
 
+/*
+ * Return the cost of going to a cell
+ */
 int AstarSearch::actionCost(Cell * cell)
 {
     return cell->getValue();
