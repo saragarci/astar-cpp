@@ -17,12 +17,12 @@ namespace astar {
 class AstarSearch {
 public:
     explicit AstarSearch(Map & map, std::array<int, 2> start, std::array<int, 2> goal, std::array<std::array<int, 2>, 4> actions);
+    std::optional<Node> BestFirstSearch();
     void showShortestPath();
     void setSolutionFound(bool isSolved);
     bool getSolutionFound();
 
 private:
-    std::optional<Node> BestFirstSearch();
     bool isGoal(Node node);
     std::vector<Node> expandNode(Node node);
     Cell * applyAction(Cell * s, std::array<int, 2> action);
