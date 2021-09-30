@@ -62,7 +62,7 @@ std::optional<Node> AstarSearch::BestFirstSearch()
     assert(start);
     
     map.print();
-    SDL_Delay(1000);
+    SDL_Delay(4000);
     
     Node n = Node{start, nullptr, actionCost(start), computeH(start)};
     frontier.push(n);
