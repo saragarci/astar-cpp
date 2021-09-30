@@ -1,6 +1,7 @@
 #include "gtest/gtest.h"
 
 #include "../src/map.hpp"
+#include "../src/cell.hpp"
 
 namespace my {
 namespace project {
@@ -37,17 +38,14 @@ class AstarTest : public ::testing::Test {
   // for Foo.
 };
 
-// Tests that Map::Map() correctly creates a map.
-TEST_F(AstarTest, MapCreatesAMap) {
+TEST_F(AstarTest, MapConstructorCreatesAMapContainer) {
 	astar::Map map{"../test/test_map_1.csv", 20};
-
-  	EXPECT_EQ(map.getWidth(), 4);
-  	EXPECT_EQ(map.getWidth(), 9);
+  	EXPECT_EQ(map.getHeight(), 5);
+  	EXPECT_EQ(map.getWidth(), 10);
 }
 
-// Tests that Foo does Xyz.
 TEST_F(AstarTest, DoesXyz) {
-  // Exercises the Xyz feature of Foo.
+	astar::Map map{"../test/test_map_1.csv", 20};
 }
 
 }  // namespace
