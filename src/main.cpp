@@ -40,18 +40,26 @@ int main() {
     //astar_task2.showShortestPath();
 
     // Task 3
-    //Map map_task3{"../src/maps/Samfundet_map_2.csv", kCellSize};
-    //std::array<int, 2> start_task3{32,28};
-    //std::array<int, 2> goal_task3{32,6}; 
-    //AstarSearch astar_task3(map_task3, start_task3, goal_task3, actions);
-    //astar_task3.showShortestPath();
+    Map map_task3{"../src/maps/Samfundet_map_2.csv", kCellSize};
+    std::array<int, 2> start_task3{32,28};
+    std::array<int, 2> goal_task3{32,6}; 
+    AstarSearch astar_task3(map_task3, start_task3, goal_task3, actions);
 
     // Task 4
-    Map map_task4{"../src/maps/Samfundet_map_Edgar_full.csv", kCellSize};
-    std::array<int, 2> start_task4{32,28};
-    std::array<int, 2> goal_task4{32,6}; 
-    AstarSearch astar_task4(map_task4, start_task4, goal_task4, actions);
-    astar_task4.showShortestPath();
+    //Map map_task4{"../src/maps/Samfundet_map_Edgar_full.csv", kCellSize};
+    //std::array<int, 2> start_task4{32,28};
+    //std::array<int, 2> goal_task4{32,6}; 
+    //AstarSearch astar_task4(map_task4, start_task4, goal_task4, actions);
+    
+    SDL_Event e;
+    // Get user input to terminate the program
+    while (!(e.type == SDL_QUIT)) {
+        SDL_PollEvent(&e);
+        if (!astar_task3.getSolutionFound())
+            astar_task3.showShortestPath();
+        else
+            map_task3.print();
+    }
 
     /*
     elif task == 5:

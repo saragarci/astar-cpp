@@ -24,7 +24,6 @@ public:
     Cell * getGoal() const;
     void setStart(std::array<int, 2> new_start);
     void setGoal(std::array<int, 2> new_goal);
-    void printSolution();
 
 private:
     void createMap();
@@ -34,9 +33,7 @@ private:
 
     SDL_Window *sdl_window;
     SDL_Renderer *sdl_renderer;
-
     const std::size_t kcell_size;
-
     std::string path;
     std::vector<std::vector<Cell>> map{};
     Cell * start{nullptr};

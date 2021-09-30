@@ -22,6 +22,8 @@ public:
     void setIsStart(bool is_start);
     bool getIsGoal();
     void setIsGoal(bool is_goal);
+    bool getIsReached();
+    void setIsReached(bool is_reached);
 
     friend bool operator==(const Cell& lhs, const Cell& rhs) {
         return lhs.getX() == rhs.getX() && lhs.getY() == rhs.getY();
@@ -35,6 +37,7 @@ private:
     bool isSolution{false};
     bool isStart{false};
     bool isGoal{false};
+    bool isReached{false};
 };
 
 }

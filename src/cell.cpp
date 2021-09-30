@@ -74,4 +74,14 @@ void Cell::setIsGoal(bool is_goal)
     isGoal = is_goal;
 }
 
+bool Cell::getIsReached()
+{
+    return isReached;
+}
+
+void Cell::setIsReached(bool is_reached)
+{
+    isReached = is_reached;
+}
+
 }

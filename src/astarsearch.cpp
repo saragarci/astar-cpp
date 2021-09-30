@@ -52,8 +52,7 @@ void AstarSearch::showShortestPath()
         n_parent.getState()->setIsSolution(true);
         c_parent = n_parent.getParent();
     }
-
-    map.printSolution();
+    setSolutionFound(true);
 }
 
 /**
@@ -63,10 +62,14 @@ std::optional<Node> AstarSearch::BestFirstSearch()
 {
     auto * start = map.getStart();
     assert(start);
-
+    
+    map.print();
+    SDL_Delay(1000);
+    
     Node n = Node{start, nullptr, actionCost(start), computeH(start)};
     frontier.push(n);
     reached.insert({start->getName(), n});
+    start->setIsReached(true);
     while (!frontier.empty()) {
         const Node node = frontier.top();
         frontier.pop();
@@ -78,11 +81,14 @@ std::optional<Node> AstarSearch::BestFirstSearch()
             auto search = reached.find(s->getName());
             if (search == reached.end()) {
                 reached.insert({s->getName(), child});
+                s->setIsReached(true);
                 frontier.push(child);
             } else if (child.getG() < reached.at(s->getName()).getG()) {
                 reached.at(s->getName()) = child;
                 frontier.push(child);
             }
+            SDL_Delay(10);
+            map.print();
         }
     }
     return {};
@@ -143,6 +149,16 @@ int AstarSearch::actionCost(Cell * cell)
 int AstarSearch::computeH(Cell * state)
 {
     return abs(map.getGoal()->getXCoord() - state->getXCoord()) + abs(map.getGoal()->getYCoord() - state->getYCoord());
+}
+
+void AstarSearch::setSolutionFound(bool isSolved)
+{
+    solutionFound = isSolved;
+}
+
+bool AstarSearch::getSolutionFound()
+{
+    return solutionFound;
 }
 
 }

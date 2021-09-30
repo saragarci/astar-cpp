@@ -93,14 +93,16 @@ void Map::print()
 
     for (auto row : map) {
         for (auto cell : row) {
-            if (cell.getValue() == -1)
-                SDLfillRect(cell, 35, 160, 225);
-            else if (cell.getIsStart())
+            if (cell.getIsStart())
                 SDLfillRect(cell, 255, 51, 255);
             else if (cell.getIsGoal())
                 SDLfillRect(cell, 0, 128, 255);
             else if (cell.getIsSolution())
                 SDLfillRect(cell, 0, 255, 0);
+            else if (cell.getIsReached())
+                SDLfillRect(cell, 0, 0, 255);
+            else if (cell.getValue() == -1)
+                SDLfillRect(cell, 35, 160, 225);
             else if (cell.getValue() == 1)
                 SDLdrawRect(cell, 224, 224, 224);
             else if (cell.getValue() == 2)
@@ -111,17 +113,9 @@ void Map::print()
                 SDLfillRect(cell, 32, 32, 32);
         }
     }
-
+    
     // Update Screen
     SDL_RenderPresent(sdl_renderer);
-
-    SDL_Event event;
-
-    // Checks if the window has terminated using close in the corner
-    while(!(event.type == SDL_QUIT)) {
-        SDL_Delay(10);  // setting some Delay
-        SDL_PollEvent(&event);  // Catching the poll event.
-    }
 }
 
 void Map::SDLfillRect(Cell cell, int r, int g, int b)
@@ -192,11 +186,6 @@ Cell * Map::getCellAtCoordinates(int x, int y)
     auto * cell = &map[y][x];
     assert(cell);
     return cell;
-}
-
-void Map::printSolution()
-{
-    print();
 }
 
 }

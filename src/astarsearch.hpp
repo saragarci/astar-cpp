@@ -18,6 +18,8 @@ class AstarSearch {
 public:
     explicit AstarSearch(Map & map, std::array<int, 2> start, std::array<int, 2> goal, std::array<std::array<int, 2>, 4> actions);
     void showShortestPath();
+    void setSolutionFound(bool isSolved);
+    bool getSolutionFound();
 
 private:
     std::optional<Node> BestFirstSearch();
@@ -39,6 +41,7 @@ private:
     std::unordered_map<std::string, Node> reached;
 
     std::array<std::array<int, 2>, 4> actions;
+    bool solutionFound{false};
 };
 
 }
