@@ -1,6 +1,21 @@
 # A* search
 
-This application implements the A* search algorithm. The SDL library is used to show the expansion as well as the final path found by the algorithm.
+This application implements the A* search algorithm and applies it to its classical use case, namely that of finding the shortest path in a two-dimensional grid-like world.
+
+The program reads from a board configuration (a text file describing where the obstacles are located) and where the start and goal squares are. It then finds the shortest path from start to goal.
+
+The SDL library is used to show the expansion as well as the final path found by the algorithm.
+
+There are 5 boards available. The first 3 contain obstacles and the last 2 contain squares with different costs. Costs are represented in the graphics by using light grey (cost 1) all the way to black (cost 4).
+
+| Char. | Description   | Cost |
+|-------|---------------|------|
+| .     | Flat Ground   | 1    |
+| ,     | Stairs        | 2    |
+| :     | Packed Stairs | 3    |
+| ;     | Packed Room   | 4    |
+
+Output for task 4:
 
 <img src="images/task_4.gif"/>
 
