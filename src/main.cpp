@@ -72,7 +72,7 @@ int main(int argc, char *argv[]) {
 
     assert(task);
 
-    // Instanciate a map and the astar search
+    // Instantiate a map and the astar search
     Map map{task->map_path, task->kCellSize};
     AstarSearch astar(map, task->start, task->goal, task->actions);
 

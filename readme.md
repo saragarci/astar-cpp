@@ -34,11 +34,11 @@ $ ./AstarSearch <task number> # to execute the program
 
 ### Starting the search
 
-Run `./AstarSearch` followed by the number of the task to see the search iteration process plus the final solution found.
+Run `./AstarSearch` followed by the number of the task (map) to see the search iteration process plus the final solution found.
 
 For instance, to run task 1, run `./AstarSearch 1`.
 
-The vailable tasks are `0`, `1`, `2`, `3`, `4`.
+The available tasks are `0`, `1`, `2`, `3`, `4`.
 
 ## Project Structure
 
