@@ -17,7 +17,9 @@ There are 5 boards available. The first 3 contain obstacles and the last 2 conta
 
 Output for task 4:
 
-<img src="images/task_4.gif"/>
+<p align="center">
+  <img src="images/task_4.gif"/>
+</p>
 
 ## Usage
 
