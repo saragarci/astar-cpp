@@ -71,6 +71,7 @@ This project is organized into four main classes:
 
 * Russell, Stuart J.; Norvig, Peter 2021, *Artificial Intelligence: A Modern Approach* (4th Edition, Global Edition) Pearson Education.
 * [SDL Wiki](https://wiki.libsdl.org/APIByCategory)
+* [GoogleTest - Google’s C++ testing and mocking framework](https://google.github.io/googletest/)
 
 ### Contributors
 
